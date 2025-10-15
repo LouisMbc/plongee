@@ -1,5 +1,5 @@
-# Utiliser Node.js 18 Alpine pour une image légère
-FROM node:18-alpine AS base
+# Utiliser Node.js 20 Alpine pour une image légère
+FROM node:20-alpine AS base         
 
 # Installer les dépendances système nécessaires
 RUN apk add --no-cache libc6-compat
