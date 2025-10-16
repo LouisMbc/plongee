@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:rfishbase": "node ./test/integration/rfishbase.test.js"
+    "test:rfishbase": "node ./test/integration/rfishbase.test.js",
+    "test:backend-fish": "node ./test/integration/backend_fish.test.js",
+    "test:integration": "npm run test:rfishbase && npm run test:backend-fish"
   },
   "dependencies": {
     "react": "19.1.0",
