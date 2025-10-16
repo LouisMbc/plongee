@@ -1,5 +1,4 @@
 // Test minimal pour vérifier que le service rfishbase répond
-// Utilise global fetch (Node 18+) pour respecter les règles ESLint
 
 const RFISHBASE = process.env.RFISHBASE_URL || 'http://localhost:8000';
 

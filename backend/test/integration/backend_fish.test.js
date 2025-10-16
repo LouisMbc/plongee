@@ -1,5 +1,4 @@
 // Simple integration test for backend /api/fish endpoint
-// Use global fetch (Node 18+) instead of require-style imports to satisfy ESLint rules
 
 const BACKEND = process.env.BACKEND_URL || 'http://localhost:3001';
 
