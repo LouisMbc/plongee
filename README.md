@@ -85,8 +85,20 @@ cd ../backend
 npm ci
 npm test
 ```
+---
 
-Se connecter à pgAdmin: http://localhost:8080
+## Accès aux services
 
-PostgreSQL (externe sur l'hôte): `localhost:5433` (mappage 5433:5432)
+Une fois la stack Docker démarrée, vous pouvez accéder aux services via les URLs suivantes :
+
+- **Frontend** : http://localhost:3000
+- **Backend** : http://localhost:3001
+- **rfishbase** (API poissons) : http://localhost:8000/ping
+- **pgAdmin** (Administration DB) : http://localhost:8080
+  - Email : `admin@plongee.com`
+  - Mot de passe : `admin123`
+- **PostgreSQL** (depuis l'hôte) : `localhost:5432`
+  - Database : `plongee_db`
+  - Username : `plongee_user`
+  - Password : `plongee_password`
 

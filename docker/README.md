@@ -67,18 +67,72 @@ docker-compose up -d frontend
 - **Password** : `plongee_password`
 
 ### Initialisation
-La base de données est automatiquement initialisée avec des tables d'exemple lors du premier démarrage via le script `docker/init-db/01-init.sh`.
+La base de données est automatiquement initialisée lors du premier démarrage via le script `docker/init-db/01-init.sql`.
+
+**Tables créées :**
+- `utilisateur` - Utilisateurs de l'application
+- `role` - Rôles (admin/utilisateur)
+- `plongee` - Plongées enregistrées
+- `espece` - Espèces marines observées
+- `plongee_espece` - Liaison plongées ↔ espèces
 
 ### Connexion depuis pgAdmin
 1. Aller sur http://localhost:8080
-2. Se connecter avec les credentials pgAdmin
+2. Se connecter avec :
+   - Email: `admin@plongee.com`
+   - Mot de passe: `admin123`
 3. Ajouter un nouveau serveur :
    - **Name** : Plongee DB
-   - **Host** : `postgres`
+   - **Host** : `postgres` ⚠️ (pas localhost !)
    - **Port** : `5432`
    - **Database** : `plongee_db`
    - **Username** : `plongee_user`
    - **Password** : `plongee_password`
+
+##  Authentification
+
+### API Endpoints (Backend - port 3001)
+
+**Inscription**
+```bash
+POST http://localhost:3001/api/auth/register
+Content-Type: application/json
+
+{
+  "pseudo": "johndoe",
+  "password": "password123",
+  "nom": "Doe",
+  "prenom": "John"
+}
+```
+
+**Connexion**
+```bash
+POST http://localhost:3001/api/auth/login
+Content-Type: application/json
+
+{
+  "pseudo": "johndoe",
+  "password": "password123"
+}
+```
+
+**Profil utilisateur**
+```bash
+GET http://localhost:3001/api/auth/me
+Authorization: Bearer {token}
+```
+
+### Sécurité
+- ✅ Mots de passe hashés avec **bcrypt** (10 rounds)
+- ✅ Tokens **JWT** valides 7 jours
+- ✅ Validation des données avec **Zod**
+- ✅ Protection CORS configurée
+
+### Frontend
+- **Inscription** : http://localhost:3000/register
+- **Connexion** : http://localhost:3000/login
+- Token JWT stocké dans `localStorage`
 
 ##  Service rfishbase
 
@@ -198,4 +252,23 @@ kill -9 PID
 
 # Ou arrêter tous les processus Node.js
 pkill -f node
+```
+
+### Erreur CORS (Cross-Origin)
+```bash
+# Si vous voyez "CORS Missing Allow Origin"
+# Vérifiez que next.config.ts contient la configuration CORS
+# Puis reconstruisez le backend :
+docker-compose down
+docker-compose up --build backend
+```
+
+### Erreur "Cannot find module @tailwindcss/postcss"
+```bash
+# Assurez-vous que package.json contient :
+# "@tailwindcss/postcss": "^4.0.0" dans dependencies
+cd backend
+npm install
+cd ../docker
+docker-compose up --build backend
 ```
