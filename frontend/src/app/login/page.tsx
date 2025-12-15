@@ -28,12 +28,11 @@ export default function LoginPage() {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        alert('Connexion réussie !');
         window.location.href = '/';
       } else {
         setError(data.error || 'Erreur lors de la connexion');
       }
-    } catch (error) {
+    } catch {
       setError('Erreur de connexion au serveur');
     } finally {
       setLoading(false);

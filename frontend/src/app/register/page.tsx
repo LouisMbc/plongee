@@ -42,12 +42,11 @@ export default function RegisterPage() {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        alert('Inscription réussie !');
         window.location.href = '/';
       } else {
         setError(data.error || 'Erreur lors de l\'inscription');
       }
-    } catch (error) {
+    } catch {
       setError('Erreur de connexion au serveur');
     } finally {
       setLoading(false);

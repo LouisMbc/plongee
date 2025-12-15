@@ -13,5 +13,13 @@ export const loginSchema = z.object({
   password: z.string().min(1, 'Le mot de passe est requis'),
 });
 
+export const updateProfileSchema = z.object({
+  pseudo: z.string().min(3, 'Le pseudo doit contenir au moins 3 caractères').optional(),
+  nom: z.string().min(2, 'Le nom doit contenir au moins 2 caractères').optional(),
+  prenom: z.string().min(2, 'Le prénom doit contenir au moins 2 caractères').optional(),
+  photo_profil: z.string().nullable().optional(),
+});
+
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;

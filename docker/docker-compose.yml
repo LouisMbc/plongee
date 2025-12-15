@@ -51,7 +51,7 @@ services:
     container_name: plongee_frontend
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - DATABASE_URL=postgresql://plongee_user:plongee_password@postgres:5432/plongee_db
       - NEXT_PUBLIC_API_URL=http://localhost:3001
     ports:
