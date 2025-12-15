@@ -15,7 +15,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db:/docker-entrypoint-initdb.d
     ports:
-      - "5433:5432"
+      - "5432:5432"
     networks:
       - plongee_network
     healthcheck:

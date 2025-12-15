@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5433,
+            "driver": "PostgreSQL",
+            "password": "plongee_password",
+            "username": "plongee_user",
+            "database": "plongee_db",
+            "name": "plongee_postgres"
+        }
+    ]
+}

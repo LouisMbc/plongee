@@ -7,24 +7,32 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "npm run test:unit",
+    "test:unit": "jest --config ./jest.config.cjs --runInBand",
     "test:rfishbase": "node ./test/integration/rfishbase.test.js",
     "test:backend-fish": "node ./test/integration/backend_fish.test.js",
     "test:integration": "npm run test:rfishbase && npm run test:backend-fish"
   },
   "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "next": "15.5.4",
+    "node-fetch": "^2.7.0",
+    "pg": "^8.11.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.4"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
-    "@eslint/eslintrc": "^3"
+    "jest": "^29.7.0",
+    "prisma": "^5.11.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "yaml": "^2.3.1"
   }
 }
