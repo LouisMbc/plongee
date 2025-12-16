@@ -17,8 +17,12 @@ export async function POST(request: NextRequest) {
 
     const { pseudo, password } = validation.data;
 
+    // Trouver l'utilisateur avec son rôle
     const result = await pool.query(
-      'SELECT id, pseudo, mot_de_passe, nom, prenom, photo_profil FROM utilisateur WHERE pseudo = $1',
+      `SELECT u.id, u.pseudo, u.mot_de_passe, u.nom, u.prenom, u.photo_profil, u.blocked, r.admin
+       FROM utilisateur u
+       LEFT JOIN role r ON u.id = r.id_utilisateur
+       WHERE u.pseudo = $1`,
       [pseudo]
     );
 
@@ -31,6 +35,15 @@ export async function POST(request: NextRequest) {
 
     const user = result.rows[0];
 
+    // Vérifier si l'utilisateur est bloqué
+    if (user.blocked) {
+      return NextResponse.json(
+        { error: 'Votre compte a été bloqué par un administrateur' },
+        { status: 403 }
+      );
+    }
+
+    // Vérifier le mot de passe
     const isValidPassword = await comparePassword(password, user.mot_de_passe);
     if (!isValidPassword) {
       return NextResponse.json(
@@ -39,6 +52,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Générer le token
     const token = generateToken(user.id, user.pseudo);
 
     return NextResponse.json({
@@ -49,6 +63,7 @@ export async function POST(request: NextRequest) {
         nom: user.nom,
         prenom: user.prenom,
         photo_profil: user.photo_profil,
+        admin: user.admin || false, // Ajouter le statut admin
       },
       token,
     });
