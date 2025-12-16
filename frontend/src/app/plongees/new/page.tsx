@@ -171,7 +171,7 @@ export default function NewPlongeePage() {
                 disabled={loading}
                 className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:bg-gray-400"
               >
-                {loading ? 'Enregistrement...' : 'Suivant : Ajouter des espèces'}
+                {loading ? 'Enregistrement...' : 'Suivant : Ajouter des espèces →'}
               </button>
               <button
                 type="button"

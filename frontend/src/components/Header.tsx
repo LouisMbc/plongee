@@ -53,6 +53,13 @@ export default function Header() {
               <span className="text-sm">Bonjour, {user.pseudo}</span>
               
               <Link 
+                href="/poissons" 
+                className="px-4 py-2 rounded hover:bg-blue-700 transition"
+              >
+                🐟 Poissons
+              </Link>
+              
+              <Link 
                 href="/plongees/new" 
                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition font-semibold"
               >
