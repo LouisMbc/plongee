@@ -80,8 +80,7 @@ export default function AdminPage() {
         const data = await res.json();
         alert(data.error || 'Erreur');
       }
-    } catch (err) {
-      console.error('Erreur:', err);
+    } catch {
       alert('Erreur de connexion au serveur');
     }
   };
@@ -147,7 +146,7 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">⚙️ Administration</h1>
+        <h1 className="text-3xl font-bold mb-8">Administration</h1>
 
         {error && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
@@ -213,17 +212,17 @@ export default function AdminPage() {
                       <div className="space-y-1">
                         {user.admin && (
                           <span className="inline-block px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded">
-                            👑 Admin
+                            Admin
                           </span>
                         )}
                         {user.blocked && (
                           <span className="inline-block px-2 py-1 text-xs bg-red-100 text-red-800 rounded">
-                            🚫 Bloqué
+                            Bloqué
                           </span>
                         )}
                         {!user.admin && !user.blocked && (
                           <span className="inline-block px-2 py-1 text-xs bg-green-100 text-green-800 rounded">
-                            ✅ Actif
+                            Actif
                           </span>
                         )}
                       </div>

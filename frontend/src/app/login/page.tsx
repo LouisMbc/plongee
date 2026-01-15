@@ -52,8 +52,9 @@ export default function LoginPage() {
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Pseudo</label>
+            <label htmlFor="pseudo" className="block text-sm font-medium mb-1">Pseudo</label>
             <input
+              id="pseudo"
               type="text"
               required
               className="w-full px-3 py-2 border rounded-md"
@@ -63,8 +64,9 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Mot de passe</label>
+            <label htmlFor="password" className="block text-sm font-medium mb-1">Mot de passe</label>
             <input
+              id="password"
               type="password"
               required
               className="w-full px-3 py-2 border rounded-md"

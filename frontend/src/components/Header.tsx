@@ -18,14 +18,11 @@ export default function Header() {
   useEffect(() => {
     // Charger l'utilisateur depuis localStorage
     const userData = localStorage.getItem('user');
-    console.log('Header: userData =', userData); // Debug
     if (userData) {
       try {
         const parsedUser = JSON.parse(userData) as User;
-        console.log('Header: parsedUser =', parsedUser); // Debug
         setUser(parsedUser);
-      } catch (e) {
-        console.error('Header: erreur parsing user', e);
+      } catch {
         setUser(null);
       }
     }
@@ -37,8 +34,6 @@ export default function Header() {
     setUser(null);
     window.location.href = '/';
   };
-
-  console.log('Header render: user =', user); // Debug
 
   return (
     <header className="bg-blue-600 text-white shadow-md">
@@ -56,14 +51,14 @@ export default function Header() {
                 href="/poissons" 
                 className="px-4 py-2 rounded hover:bg-blue-700 transition"
               >
-                🐟 Poissons
+                 Poissons
               </Link>
               
               <Link 
                 href="/plongees/new" 
                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition font-semibold"
               >
-                ➕ Nouvelle plongée
+                 Nouvelle plongée
               </Link>
               
               {user.admin && (
@@ -71,7 +66,7 @@ export default function Header() {
                   href="/admin" 
                   className="px-4 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-400 transition font-semibold"
                 >
-                  ⚙️ Admin
+                   Admin
                 </Link>
               )}
               

@@ -54,7 +54,7 @@ export default function PoissonsPage() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2 text-blue-900">🐟 Catalogue des Poissons</h1>
+          <h1 className="text-4xl font-bold mb-2 text-blue-900">Catalogue des Poissons</h1>
           <p className="text-gray-600 text-lg">
             Découvrez <span className="font-bold text-blue-600">{total.toLocaleString()}</span> espèces marines
           </p>
