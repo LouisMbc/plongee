@@ -176,10 +176,11 @@ export default function EditProfilePage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label htmlFor="pseudo" className="block text-sm font-medium mb-1">
                 Pseudo *
               </label>
               <input
+                id="pseudo"
                 type="text"
                 required
                 minLength={3}
@@ -193,10 +194,11 @@ export default function EditProfilePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label htmlFor="nom" className="block text-sm font-medium mb-1">
                 Nom *
               </label>
               <input
+                id="nom"
                 type="text"
                 required
                 className="w-full px-3 py-2 border rounded-md"
@@ -206,10 +208,11 @@ export default function EditProfilePage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label htmlFor="prenom" className="block text-sm font-medium mb-1">
                 Prénom *
               </label>
               <input
+                id="prenom"
                 type="text"
                 required
                 className="w-full px-3 py-2 border rounded-md"

@@ -99,7 +99,7 @@ export async function POST(
     }
 
     // Vérifier si l'espèce existe déjà dans la table espece
-    let especeResult = await pool.query(
+    const especeResult = await pool.query(
       'SELECT id FROM espece WHERE nom = $1',
       [nom]
     );

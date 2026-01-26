@@ -111,7 +111,7 @@ export default function DeleteAccountPage() {
             <ul className="list-disc list-inside text-red-700 text-sm space-y-1 ml-4">
               <li>Toutes vos données personnelles seront supprimées</li>
               <li>Toutes vos plongées enregistrées seront supprimées</li>
-              <li>Vos observations d'espèces seront supprimées</li>
+              <li>Vos observations d&apos;espèces seront supprimées</li>
               <li>Vous ne pourrez pas récupérer ces données</li>
             </ul>
           </div>
@@ -139,7 +139,7 @@ export default function DeleteAccountPage() {
 
             <div>
               <label className="block text-sm font-medium mb-1">
-                Tapez "SUPPRIMER" pour confirmer *
+                Tapez &quot;SUPPRIMER&quot; pour confirmer *
               </label>
               <input
                 type="text"
@@ -150,7 +150,7 @@ export default function DeleteAccountPage() {
                 placeholder="SUPPRIMER"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Tapez exactement "SUPPRIMER" en majuscules
+                Tapez exactement &quot;SUPPRIMER&quot; en majuscules
               </p>
             </div>
 
