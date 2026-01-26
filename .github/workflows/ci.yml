@@ -218,11 +218,9 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Run Prisma migrations
-        working-directory: ./backend
-        run: npx prisma migrate deploy
-        env:
-          DATABASE_URL: postgresql://plongee_user:plongee_password@localhost:5432/plongee_db
+      - name: Initialize database
+        run: |
+          PGPASSWORD=plongee_password psql -h localhost -U plongee_user -d plongee_db -f docker/init-db/01-init.sql
 
       - name: Start backend
         working-directory: ./backend
