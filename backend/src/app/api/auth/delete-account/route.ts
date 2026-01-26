@@ -85,8 +85,7 @@ export async function DELETE(request: NextRequest) {
       message: 'Compte supprimé avec succès',
     });
 
-  } catch (error) {
-    console.error('Delete account error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Erreur serveur' },
       { status: 500 }

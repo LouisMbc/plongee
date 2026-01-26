@@ -89,8 +89,7 @@ export async function PUT(request: NextRequest) {
       message: 'Mot de passe modifié avec succès',
     });
 
-  } catch (error) {
-    console.error('Change password error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Erreur serveur' },
       { status: 500 }

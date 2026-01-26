@@ -129,8 +129,7 @@ export async function PUT(request: NextRequest) {
       user: result.rows[0],
     });
 
-  } catch (error) {
-    console.error('Update profile error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Erreur serveur' },
       { status: 500 }

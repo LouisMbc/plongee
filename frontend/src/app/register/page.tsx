@@ -66,8 +66,9 @@ export default function RegisterPage() {
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Pseudo *</label>
+            <label htmlFor="pseudo" className="block text-sm font-medium mb-1">Pseudo *</label>
             <input
+              id="pseudo"
               type="text"
               required
               className="w-full px-3 py-2 border rounded-md"
@@ -77,8 +78,9 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Nom *</label>
+            <label htmlFor="nom" className="block text-sm font-medium mb-1">Nom *</label>
             <input
+              id="nom"
               type="text"
               required
               className="w-full px-3 py-2 border rounded-md"
@@ -88,8 +90,9 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Prénom *</label>
+            <label htmlFor="prenom" className="block text-sm font-medium mb-1">Prénom *</label>
             <input
+              id="prenom"
               type="text"
               required
               className="w-full px-3 py-2 border rounded-md"
@@ -99,8 +102,9 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Mot de passe *</label>
+            <label htmlFor="password" className="block text-sm font-medium mb-1">Mot de passe *</label>
             <input
+              id="password"
               type="password"
               required
               minLength={6}
@@ -111,8 +115,9 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Confirmer le mot de passe *</label>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1">Confirmer le mot de passe *</label>
             <input
+              id="confirmPassword"
               type="password"
               required
               className="w-full px-3 py-2 border rounded-md"

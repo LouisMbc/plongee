@@ -40,8 +40,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ user: result.rows[0] });
 
-  } catch (error) {
-    console.error('Get user error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Erreur serveur' },
       { status: 500 }

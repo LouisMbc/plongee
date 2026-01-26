@@ -1,0 +1,42 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - link "Plongée" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "Se connecter" [ref=e6] [cursor=pointer]:
+          - /url: /login
+        - link "S'inscrire" [ref=e7] [cursor=pointer]:
+          - /url: /register
+  - main [ref=e8]:
+    - generic [ref=e9]:
+      - heading "S'inscrire" [level=1] [ref=e10]
+      - generic [ref=e11]: Erreur de connexion au serveur
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: Pseudo *
+          - textbox "Pseudo *" [ref=e15]: testuser_1769417579481
+        - generic [ref=e16]:
+          - generic [ref=e17]: Nom *
+          - textbox "Nom *" [ref=e18]: TestNom
+        - generic [ref=e19]:
+          - generic [ref=e20]: Prénom *
+          - textbox "Prénom *" [ref=e21]: TestPrenom
+        - generic [ref=e22]:
+          - generic [ref=e23]: Mot de passe *
+          - textbox "Mot de passe *" [ref=e24]: TestPassword123!
+        - generic [ref=e25]:
+          - generic [ref=e26]: Confirmer le mot de passe *
+          - textbox "Confirmer le mot de passe *" [ref=e27]: TestPassword123!
+        - button "S'inscrire" [ref=e28]
+      - paragraph [ref=e29]:
+        - text: Déjà inscrit ?
+        - link "Se connecter" [ref=e30] [cursor=pointer]:
+          - /url: /login
+  - button "Open Next.js Dev Tools" [ref=e36] [cursor=pointer]:
+    - img [ref=e37]
+  - alert [ref=e40]
+```

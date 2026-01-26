@@ -68,8 +68,7 @@ export async function GET(request: NextRequest) {
       total: result.rows.length,
     });
 
-  } catch (error) {
-    console.error('Get users error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Erreur serveur' },
       { status: 500 }

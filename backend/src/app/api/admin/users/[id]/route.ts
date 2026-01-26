@@ -61,8 +61,7 @@ export async function DELETE(
       message: 'Utilisateur supprimé avec succès',
     });
 
-  } catch (error) {
-    console.error('Delete user error:', error);
+  } catch {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }

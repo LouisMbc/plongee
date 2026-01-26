@@ -58,8 +58,7 @@ export async function PATCH(
       message: admin ? 'Utilisateur promu administrateur' : 'Droits administrateur retirés',
     });
 
-  } catch (error) {
-    console.error('Promote user error:', error);
+  } catch {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }

@@ -17,9 +17,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    console.log('🔥 REQUETE RECUE - URL:', request.url);
-    
+  try {    
     const authHeader = request.headers.get('authorization');
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -49,21 +47,16 @@ export async function PATCH(
     const body = await request.json();
     const { blocked } = body;
 
-    console.log('🔥 PARAMETRES - userId:', id, 'blocked à mettre:', blocked, 'type:', typeof blocked);
-
     // Vérifier l'état actuel avant l'update
     const beforeUpdate = await pool.query(
       'SELECT id, pseudo, blocked FROM utilisateur WHERE id = $1',
       [id]
     );
-    console.log('🔥 AVANT UPDATE:', beforeUpdate.rows[0]);
 
     const result = await pool.query(
       'UPDATE utilisateur SET blocked = $1 WHERE id = $2 RETURNING id, pseudo, blocked',
       [blocked, id]
     );
-
-    console.log('🔥 APRES UPDATE:', result.rows[0]);
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: 'Utilisateur non trouvé' }, { status: 404 });
@@ -74,8 +67,7 @@ export async function PATCH(
       user: result.rows[0],
     });
 
-  } catch (error) {
-    console.error('❌ ERREUR Block user:', error);
+  } catch {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }

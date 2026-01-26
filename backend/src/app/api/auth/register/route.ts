@@ -57,8 +57,7 @@ export async function POST(request: NextRequest) {
       token,
     }, { status: 201 });
 
-  } catch (error) {
-    console.error('Register error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Erreur serveur' },
       { status: 500 }
