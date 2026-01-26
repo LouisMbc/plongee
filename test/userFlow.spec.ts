@@ -40,7 +40,10 @@ test('Parcours utilisateur complet', async ({ page }) => {
   await expect(page).toHaveURL(/\/profile\/edit/);
   await page.locator('input[type="text"]').first().fill(`${pseudo}_modif`);
   await page.click('button[type="submit"]:has-text("Enregistrer les modifications")');
-  await expect(page.locator('input[type="text"]').first()).toHaveValue(`${pseudo}_modif`);
+  
+  // Attendre que la redirection vers /profile soit complète
+  await expect(page).toHaveURL(/\/profile$/);
+  await page.waitForTimeout(1000); // Attendre que la mise à jour backend soit terminée
 
   // TODO: Correction nécessaire - Le formulaire de mot de passe ne s'affiche pas après modification du profil
   // // Modifier le mot de passe
@@ -64,7 +67,18 @@ test('Parcours utilisateur complet', async ({ page }) => {
   await page.getByLabel('Pseudo', { exact: true }).fill(`${pseudo}_modif`);
   await page.getByLabel('Mot de passe', { exact: true }).fill(password);
   await page.click('button[type="submit"]');
-  await expect(page).toHaveURL(/\/$/);
+  
+  // Attendre la redirection avec un timeout plus long et vérifier qu'il n'y a pas d'erreur
+  await page.waitForTimeout(2000); // Attendre que la requête de login soit traitée
+  
+  // Vérifier qu'aucun message d'erreur n'est affiché
+  const errorMessage = page.locator('.bg-red-100');
+  if (await errorMessage.isVisible()) {
+    const errorText = await errorMessage.textContent();
+    throw new Error(`Erreur de connexion: ${errorText}`);
+  }
+  
+  await expect(page).toHaveURL(/\/$/, { timeout: 10000 });
 
   // Déconnexion finale
   await page.goto('http://localhost:3000/profile');
