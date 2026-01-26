@@ -3,6 +3,18 @@ import pool from '@/lib/db';
 import { hashPassword, generateToken } from '@/lib/auth';
 import { registerSchema } from '@/lib/validation';
 
+// Headers CORS
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+// Gestion des requêtes OPTIONS (preflight CORS)
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -11,7 +23,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         { error: 'Données invalides', details: validation.error.errors },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -25,7 +37,7 @@ export async function POST(request: NextRequest) {
     if (existingUser.rows.length > 0) {
       return NextResponse.json(
         { error: 'Ce pseudo est déjà utilisé' },
-        { status: 409 }
+        { status: 409, headers: corsHeaders }
       );
     }
 
@@ -55,12 +67,12 @@ export async function POST(request: NextRequest) {
         photo_profil: user.photo_profil,
       },
       token,
-    }, { status: 201 });
+    }, { status: 201, headers: corsHeaders });
 
   } catch {
     return NextResponse.json(
       { error: 'Erreur serveur' },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }

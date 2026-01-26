@@ -70,11 +70,17 @@ services:
     container_name: plongee_backend
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - DATABASE_URL=postgresql://plongee_user:plongee_password@postgres:5432/plongee_db
-      - PORT=3000
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=plongee_db
+      - DB_USER=plongee_user
+      - DB_PASSWORD=plongee_password
+      - JWT_SECRET=your-secret-key-change-in-production
+      - PORT=3001
     ports:
-      - "3001:3000"
+      - "3001:3001"
     networks:
       - plongee_network
     depends_on:
