@@ -45,18 +45,6 @@ test('Parcours utilisateur complet', async ({ page }) => {
   await expect(page).toHaveURL(/\/profile$/);
   await page.waitForTimeout(1000); // Attendre que la mise à jour backend soit terminée
 
-  // TODO: Correction nécessaire - Le formulaire de mot de passe ne s'affiche pas après modification du profil
-  // // Modifier le mot de passe
-  // await page.click('button:has-text("Modifier le mot de passe")');
-  // await page.waitForTimeout(1000); // Attendre l'affichage du formulaire
-  // const passwordInputs = page.locator('input[type="password"]');
-  // await passwordInputs.nth(0).waitFor({ state: 'visible' });
-  // await passwordInputs.nth(0).fill(password);
-  // await passwordInputs.nth(1).fill(newPassword);
-  // await passwordInputs.nth(2).fill(newPassword);
-  // await page.locator('form').nth(1).locator('button[type="submit"]').click();
-  // await expect(page.locator('text=Mot de passe modifié avec succès')).toBeVisible();
-
   // Déconnexion
   await page.goto('http://localhost:3000/profile');
   await page.click('button:has-text("Déconnexion")');

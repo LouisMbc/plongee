@@ -34,41 +34,14 @@ export default function PoissonDetailsPage() {
   }, [params.specCode]);
 
   const loadPoissonDetails = async () => {
+    // TODO: Remplacer par l'accès à la base de données locale
     try {
-      const res = await fetch(`http://localhost:3001/api/poissons/${params.specCode}`);
-      const data = await res.json();
-
-      console.log('🐟 Données reçues:', data);
-      console.log('🐟 data.poisson:', data.poisson);
-
-      if (res.ok) {
-        // Normaliser les données
-        const normalizedPoisson = {
-          Species: Array.isArray(data.poisson.Species) ? data.poisson.Species[0] : data.poisson.Species,
-          Genus: Array.isArray(data.poisson.Genus) ? data.poisson.Genus[0] : data.poisson.Genus,
-          FBname: Array.isArray(data.poisson.FBname) ? data.poisson.FBname[0] : data.poisson.FBname,
-          SpecCode: Array.isArray(data.poisson.SpecCode) ? data.poisson.SpecCode[0] : data.poisson.SpecCode,
-          Author: Array.isArray(data.poisson.Author) ? data.poisson.Author[0] : data.poisson.Author,
-          BodyShapeI: Array.isArray(data.poisson.BodyShapeI) ? data.poisson.BodyShapeI[0] : data.poisson.BodyShapeI,
-          Fresh: Array.isArray(data.poisson.Fresh) ? data.poisson.Fresh[0] : data.poisson.Fresh,
-          Brack: Array.isArray(data.poisson.Brack) ? data.poisson.Brack[0] : data.poisson.Brack,
-          Saltwater: Array.isArray(data.poisson.Saltwater) ? data.poisson.Saltwater[0] : data.poisson.Saltwater,
-          DemersPelag: Array.isArray(data.poisson.DemersPelag) ? data.poisson.DemersPelag[0] : data.poisson.DemersPelag,
-          DepthRangeShallow: Array.isArray(data.poisson.DepthRangeShallow) ? data.poisson.DepthRangeShallow[0] : data.poisson.DepthRangeShallow,
-          DepthRangeDeep: Array.isArray(data.poisson.DepthRangeDeep) ? data.poisson.DepthRangeDeep[0] : data.poisson.DepthRangeDeep,
-          Length: Array.isArray(data.poisson.Length) ? data.poisson.Length[0] : data.poisson.Length,
-          Comments: Array.isArray(data.poisson.Comments) ? data.poisson.Comments[0] : data.poisson.Comments,
-          ImageURL: Array.isArray(data.poisson.ImageURL) ? data.poisson.ImageURL[0] : data.poisson.ImageURL,
-        };
-        
-        console.log('✅ Données normalisées:', normalizedPoisson);
-        setPoisson(normalizedPoisson);
-      } else {
-        setError(data.error || 'Poisson non trouvé');
-      }
+      // Simulation - À remplacer par la logique de base de données locale
+      setPoisson(null);
+      setError('Fonctionnalité non implémentée - base de données locale à configurer');
     } catch (err) {
       console.error('Erreur:', err);
-      setError('Erreur de connexion au serveur');
+      setError('Erreur de connexion');
     } finally {
       setLoading(false);
     }

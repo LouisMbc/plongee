@@ -4,7 +4,7 @@ import { verifyToken } from '@/lib/auth';
 import { z } from 'zod';
 
 const addEspeceSchema = z.object({
-  specCode: z.number(),
+  id_espece: z.string(),
   nom: z.string(),
 });
 
@@ -86,7 +86,7 @@ export async function POST(
       );
     }
 
-    const { specCode, nom } = validation.data;
+    const { id_espece, nom } = validation.data;
 
     // Vérifier que la plongée appartient à l'utilisateur
     const plongeeCheck = await pool.query(
@@ -98,28 +98,10 @@ export async function POST(
       return NextResponse.json({ error: 'Plongée non trouvée' }, { status: 404 });
     }
 
-    // Vérifier si l'espèce existe déjà dans la table espece
-    const especeResult = await pool.query(
-      'SELECT id FROM espece WHERE nom = $1',
-      [nom]
-    );
-
-    let especeId;
-    if (especeResult.rows.length === 0) {
-      // Créer l'espèce si elle n'existe pas
-      const newEspece = await pool.query(
-        'INSERT INTO espece (nom) VALUES ($1) RETURNING id',
-        [nom]
-      );
-      especeId = newEspece.rows[0].id;
-    } else {
-      especeId = especeResult.rows[0].id;
-    }
-
     // Vérifier si l'espèce n'est pas déjà associée à cette plongée
     const existingLink = await pool.query(
       'SELECT id FROM plongee_espece WHERE id_plongee = $1 AND id_espece = $2',
-      [id, especeId]
+      [id, id_espece]
     );
 
     if (existingLink.rows.length > 0) {
@@ -132,12 +114,12 @@ export async function POST(
     // Associer l'espèce à la plongée
     await pool.query(
       'INSERT INTO plongee_espece (id_plongee, id_espece) VALUES ($1, $2)',
-      [id, especeId]
+      [id, id_espece]
     );
 
     return NextResponse.json({
       message: 'Espèce ajoutée avec succès',
-      especeId: especeId,
+      especeId: id_espece,
     }, { status: 201 });
 
   } catch (error) {

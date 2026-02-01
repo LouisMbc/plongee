@@ -9,14 +9,13 @@ interface User {
   nom: string;
   prenom: string;
   photo_profil?: string | null;
-  admin?: boolean; // Ajouter le champ admin
+  admin?: boolean;
 }
 
 export default function Header() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // Charger l'utilisateur depuis localStorage
     const userData = localStorage.getItem('user');
     if (userData) {
       try {
@@ -36,69 +35,82 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-blue-600 text-white shadow-md">
-      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <Link href="/" className="text-2xl font-bold">
-          Plongée
-        </Link>
-        
-        <div className="flex gap-4 items-center">
-          {user ? (
-            <>
-              <span className="text-sm">Bonjour, {user.pseudo}</span>
-              
-              <Link 
-                href="/poissons" 
-                className="px-4 py-2 rounded hover:bg-blue-700 transition"
-              >
-                 Poissons
-              </Link>
-              
-              <Link 
-                href="/plongees/new" 
-                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition font-semibold"
-              >
-                 Nouvelle plongée
-              </Link>
-              
-              {user.admin && (
+    <header className="bg-gradient-to-r from-blue-900 via-blue-800 to-cyan-900 text-white shadow-lg border-b-4 border-cyan-500">
+      <nav className="container mx-auto px-6 py-4">
+        <div className="flex justify-between items-center">
+          {/* Logo et titre */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center group-hover:bg-cyan-400 transition-all duration-300">
+              <svg className="w-6 h-6 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold tracking-wide group-hover:text-cyan-300 transition-colors">
+                DIVE LOG
+              </h1>
+              <p className="text-xs text-cyan-300 tracking-widest">Carnet de Plongée</p>
+            </div>
+          </Link>
+          
+          {/* Navigation */}
+          <div className="flex gap-2 items-center">
+            {user ? (
+              <>
                 <Link 
-                  href="/admin" 
-                  className="px-4 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-400 transition font-semibold"
+                  href="/poissons" 
+                  className="px-4 py-2 bg-blue-800/30 rounded-md hover:bg-blue-800/50 transition-all duration-200 text-sm font-medium border border-cyan-500/30 hover:border-cyan-500"
                 >
-                   Admin
+                  Espèces Marines
                 </Link>
-              )}
-              
-              <Link 
-                href="/profile" 
-                className="px-4 py-2 rounded hover:bg-blue-700 transition"
-              >
-                Mon profil
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 bg-red-500 rounded hover:bg-red-600 transition"
-              >
-                Déconnexion
-              </button>
-            </>
-          ) : (
-            <>
-              <Link 
-                href="/login" 
-                className="px-4 py-2 rounded hover:bg-blue-700 transition"
-              >
-                Se connecter
-              </Link>
-              <Link 
-                href="/register" 
-                className="px-4 py-2 bg-white text-blue-600 rounded hover:bg-gray-100 transition"
-              >
-                S&apos;inscrire
-              </Link>
-            </>
-          )}
+                
+                <Link 
+                  href="/plongees/new" 
+                  className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-200 font-semibold shadow-md text-sm"
+                >
+                  Nouvelle Plongée
+                </Link>
+                
+                {user.admin && (
+                  <Link 
+                    href="/admin" 
+                    className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-md hover:from-yellow-400 hover:to-orange-400 transition-all duration-200 font-semibold shadow-md text-sm"
+                  >
+                    Administration
+                  </Link>
+                )}
+                
+                <Link 
+                  href="/profile" 
+                  className="px-4 py-2 bg-blue-800/30 rounded-md hover:bg-blue-800/50 transition-all duration-200 text-sm font-medium border border-cyan-500/30 hover:border-cyan-500"
+                >
+                  Profil
+                </Link>
+                
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 bg-red-600/80 rounded-md hover:bg-red-600 transition-all duration-200 text-sm font-medium ml-2"
+                >
+                  Déconnexion
+                </button>
+              </>
+            ) : (
+              <>
+                <Link 
+                  href="/login" 
+                  className="px-5 py-2 rounded-md hover:bg-blue-800/50 transition-all duration-200 font-medium border border-cyan-500/50 hover:border-cyan-500"
+                >
+                  Connexion
+                </Link>
+                <Link 
+                  href="/register" 
+                  className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-md hover:from-cyan-400 hover:to-blue-400 transition-all duration-200 font-semibold shadow-md"
+                >
+                  Inscription
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </nav>
     </header>

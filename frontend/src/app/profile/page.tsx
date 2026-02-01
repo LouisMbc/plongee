@@ -121,8 +121,11 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <p>Chargement...</p>
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50">
+        <div className="text-center">
+          <div className="w-20 h-20 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-xl text-blue-800 font-medium">Chargement...</p>
+        </div>
       </main>
     );
   }
@@ -132,101 +135,111 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Mon Profil</h1>
+    <main className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 py-8 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-blue-900 mb-2">Mon Profil</h1>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+        </div>
         
-        <div className="bg-white rounded-lg shadow-md p-6 space-y-6">
-          {/* Photo de profil */}
-          <div className="flex flex-col items-center pb-6 border-b">
-            <div className="relative w-32 h-32 mb-4">
-              {user.photo_profil ? (
-                <Image
-                  src={user.photo_profil}
-                  alt="Photo de profil"
-                  fill
-                  className="rounded-full object-cover"
-                />
+        <div className="bg-white rounded-2xl shadow-xl p-6 border border-blue-100">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Photo de profil */}
+            <div className="flex flex-col items-center">
+              <div className="relative w-32 h-32 mb-4">
+                {user.photo_profil ? (
+                  <Image
+                    src={user.photo_profil}
+                    alt="Photo de profil"
+                    fill
+                    className="rounded-full object-cover border-4 border-blue-200 shadow-lg"
+                  />
+                ) : (
+                  <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center border-4 border-blue-200 shadow-lg">
+                    <span className="text-4xl text-blue-700 font-bold">
+                      {user.pseudo.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                )}
+              </div>
+              
+              {!showPhotoInput ? (
+                <div className="flex flex-col gap-2 w-full">
+                  <button
+                    onClick={() => setShowPhotoInput(true)}
+                    className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-all duration-300 font-medium text-sm"
+                  >
+                    {user.photo_profil ? 'Changer' : 'Ajouter'}
+                  </button>
+                  {user.photo_profil && (
+                    <button
+                      onClick={handleRemovePhoto}
+                      className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-all duration-300 font-medium text-sm"
+                    >
+                      Supprimer
+                    </button>
+                  )}
+                </div>
               ) : (
-                <div className="w-full h-full rounded-full bg-blue-100 flex items-center justify-center">
-                  <span className="text-4xl text-blue-600 font-bold">
-                    {user.pseudo.charAt(0).toUpperCase()}
-                  </span>
+                <div className="w-full space-y-2">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-xs"
+                  />
+                  <button
+                    onClick={() => setShowPhotoInput(false)}
+                    className="w-full px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-sm"
+                  >
+                    Annuler
+                  </button>
+                  <p className="text-xs text-gray-600">Max 2MB</p>
                 </div>
               )}
             </div>
-            
-            {!showPhotoInput ? (
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setShowPhotoInput(true)}
-                  className="text-blue-600 hover:underline text-sm"
-                >
-                  {user.photo_profil ? 'Changer la photo' : 'Ajouter une photo'}
-                </button>
-                {user.photo_profil && (
-                  <button
-                    onClick={handleRemovePhoto}
-                    className="text-red-600 hover:underline text-sm"
-                  >
-                    Supprimer
-                  </button>
-                )}
-              </div>
-            ) : (
-              <div className="w-full max-w-md space-y-2">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="w-full px-3 py-2 border rounded-md text-sm"
-                />
-                <button
-                  onClick={() => setShowPhotoInput(false)}
-                  className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400 transition text-sm"
-                >
-                  Annuler
-                </button>
-                <p className="text-xs text-gray-500">
-                  Formats acceptés : JPG, PNG, GIF (max 2MB)
-                </p>
-              </div>
-            )}
-          </div>
 
-          {/* Informations de base */}
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Informations personnelles</h2>
-            <div className="space-y-3">
-              <div>
-                <span className="font-medium text-gray-700">Pseudo :</span>
-                <span className="ml-2">{user.pseudo}</span>
+            {/* Informations personnelles */}
+            <div className="md:col-span-2 space-y-4">
+              <h2 className="text-xl font-bold mb-4 text-blue-900">Informations Personnelles</h2>
+              
+              <div className="grid grid-cols-1 gap-3">
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-xl border border-blue-200">
+                  <span className="text-xs font-semibold text-gray-600 block mb-1">Pseudo</span>
+                  <span className="text-lg font-bold text-blue-900">{user.pseudo}</span>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-xl border border-blue-200">
+                  <span className="text-xs font-semibold text-gray-600 block mb-1">Nom</span>
+                  <span className="text-lg font-bold text-blue-900">{user.nom}</span>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-xl border border-blue-200">
+                  <span className="text-xs font-semibold text-gray-600 block mb-1">Prénom</span>
+                  <span className="text-lg font-bold text-blue-900">{user.prenom}</span>
+                </div>
               </div>
-              <div>
-                <span className="font-medium text-gray-700">Nom :</span>
-                <span className="ml-2">{user.nom}</span>
-              </div>
-              <div>
-                <span className="font-medium text-gray-700">Prénom :</span>
-                <span className="ml-2">{user.prenom}</span>
+
+              {/* Boutons d'action */}
+              <div className="flex gap-3 pt-4">
+                <button
+                  onClick={() => router.push('/profile/edit')}
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl flex items-center justify-center"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                  Modifier
+                </button>
+                <button
+                  onClick={() => router.push('/profile/delete')}
+                  className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl flex items-center justify-center"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                  Supprimer
+                </button>
               </div>
             </div>
-          </div>
-
-          {/* Boutons d'action */}
-          <div className="flex gap-4 pt-4 border-t">
-            <button
-              onClick={() => router.push('/profile/edit')}
-              className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
-            >
-              Modifier mon profil
-            </button>
-            <button
-              onClick={() => router.push('/profile/delete')}
-              className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
-            >
-              Supprimer mon compte
-            </button>
           </div>
         </div>
       </div>

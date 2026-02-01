@@ -63,7 +63,6 @@ export default function AdminPage() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    // Pas de confirmation pour simplifier (popup bloquée)
     try {
       const res = await fetch(`http://localhost:3001/api/admin/users/${userId}/block`, {
         method: 'PATCH',
@@ -89,7 +88,6 @@ export default function AdminPage() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    // Pas de confirmation (popup bloquée)
     try {
       const res = await fetch(`http://localhost:3001/api/admin/users/${userId}/promote`, {
         method: 'PATCH',
@@ -115,7 +113,6 @@ export default function AdminPage() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    // Pas de confirmation (popup bloquée)
     try {
       const res = await fetch(`http://localhost:3001/api/admin/users/${userId}`, {
         method: 'DELETE',
@@ -137,44 +134,60 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen flex items-center justify-center">
-        <p>Chargement...</p>
+      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50">
+        <div className="text-center">
+          <div className="w-20 h-20 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-xl text-blue-800 font-medium">Chargement...</p>
+        </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 py-8 px-4">
+    <main className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Administration</h1>
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold text-blue-900 mb-2">Administration</h1>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+        </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
-            {error}
+          <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-r-lg shadow-md">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+              {error}
+            </div>
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="px-6 py-4 bg-blue-600 text-white">
-            <h2 className="text-xl font-semibold">
-              Gestion des utilisateurs ({users.length})
-            </h2>
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100">
+          <div className="px-8 py-6 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">
+                Gestion des Utilisateurs
+              </h2>
+              <span className="px-5 py-2 bg-white/20 rounded-full text-sm font-semibold">
+                {users.length} utilisateur{users.length > 1 ? 's' : ''}
+              </span>
+            </div>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-100">
+              <thead className="bg-gradient-to-r from-blue-50 to-cyan-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
                     Utilisateur
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
                     Statut
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">
+                  <th className="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">
                     Inscription
                   </th>
-                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-700 uppercase">
+                  <th className="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -237,10 +250,10 @@ export default function AdminPage() {
                             e.stopPropagation();
                             handleToggleBlock(user.id, user.blocked);
                           }}
-                          className={`px-3 py-1 text-xs rounded cursor-pointer ${
+                          className={`px-4 py-2 text-xs rounded-lg font-semibold transition-all duration-300 ${
                             user.blocked
-                              ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                              : 'bg-orange-100 text-orange-700 hover:bg-orange-200'
+                              ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-md'
+                              : 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:from-orange-600 hover:to-red-600 shadow-md'
                           }`}
                           type="button"
                         >
@@ -251,10 +264,10 @@ export default function AdminPage() {
                             e.stopPropagation();
                             handleToggleAdmin(user.id, user.admin);
                           }}
-                          className={`px-3 py-1 text-xs rounded cursor-pointer ${
+                          className={`px-4 py-2 text-xs rounded-lg font-semibold transition-all duration-300 ${
                             user.admin
-                              ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                              : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                              ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                              : 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white hover:from-yellow-600 hover:to-orange-600 shadow-md'
                           }`}
                           type="button"
                         >
@@ -265,7 +278,7 @@ export default function AdminPage() {
                             e.stopPropagation();
                             handleDeleteUser(user.id);
                           }}
-                          className="px-3 py-1 text-xs bg-red-100 text-red-700 hover:bg-red-200 rounded cursor-pointer"
+                          className="px-4 py-2 text-xs bg-red-600 text-white hover:bg-red-700 rounded-lg font-semibold transition-all duration-300 shadow-md"
                           type="button"
                         >
                           Supprimer
