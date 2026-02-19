@@ -7,9 +7,7 @@ describe('LoginPage', () => {
   beforeEach(() => {
     // Nettoyer les mocks avant chaque test
     jest.clearAllMocks();
-    // Mock window.location.href pour éviter la redirection réelle
-    delete (window as Partial<Window>).location;
-    (window as Partial<Window>).location = { href: '' } as Location;
+    
     // Mock localStorage
     const localStorageMock = (function () {
       let store: Record<string, string> = {};

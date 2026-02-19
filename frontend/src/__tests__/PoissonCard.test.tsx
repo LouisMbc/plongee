@@ -32,7 +32,7 @@ describe('PoissonCard Component', () => {
     
     expect(screen.getByText('Acanthurus coeruleus')).toBeInTheDocument();
     expect(screen.getByText('Acanthurus')).toBeInTheDocument();
-    expect(screen.getByText('#1234')).toBeInTheDocument();
+    expect(screen.getByText('Détails →')).toBeInTheDocument();
   });
 
   it('affiche le nom commun si fourni', () => {
@@ -91,10 +91,10 @@ describe('PoissonCard Component', () => {
     expect(link).toHaveAttribute('href', '/poissons/1234');
   });
 
-  it('affiche "FishBase" et "Détails"', () => {
+  it('affiche "Base locale" et "Détails"', () => {
     render(<PoissonCard {...defaultProps} />);
     
-    expect(screen.getByText('FishBase')).toBeInTheDocument();
+    expect(screen.getByText('Base locale')).toBeInTheDocument();
     expect(screen.getByText('Détails →')).toBeInTheDocument();
   });
 

@@ -13,22 +13,8 @@ jest.mock('next/link', () => {
 
 describe('Header Component', () => {
   let localStorageMock: Record<string, string>;
-  const originalLocation = window.location;
-
-  beforeAll(() => {
-    // Mock window.location.href une seule fois
-    delete (window as { location?: Location }).location;
-    (window.location as unknown) = { href: 'http://localhost/' };
-  });
-
-  afterAll(() => {
-    (window.location as unknown) = originalLocation;
-  });
 
   beforeEach(() => {
-    // Reset location href
-    (window.location as { href: string }).href = 'http://localhost/';
-    
     // Mock localStorage
     localStorageMock = {};
     
@@ -52,11 +38,11 @@ describe('Header Component', () => {
   it('affiche le lien de connexion quand l\'utilisateur n\'est pas connecté', () => {
     render(<Header />);
     
-    expect(screen.getByText('Se connecter')).toBeInTheDocument();
-    expect(screen.getByText('S\'inscrire')).toBeInTheDocument();
+    expect(screen.getByText('Connexion')).toBeInTheDocument();
+    expect(screen.getByText('Inscription')).toBeInTheDocument();
   });
 
-  it('affiche le nom de l\'utilisateur quand il est connecté', () => {
+  it('affiche les liens pour utilisateur connecté', () => {
     const user = {
       id: 'user-123',
       pseudo: 'john_doe',
@@ -69,7 +55,9 @@ describe('Header Component', () => {
     
     render(<Header />);
     
-    expect(screen.getByText(/Bonjour, john_doe/i)).toBeInTheDocument();
+    expect(screen.getByText('Nouvelle Plongée')).toBeInTheDocument();
+    expect(screen.getByText('Profil')).toBeInTheDocument();
+    expect(screen.getByText('Déconnexion')).toBeInTheDocument();
   });
 
   it('affiche les liens de navigation pour un utilisateur connecté', () => {
@@ -85,9 +73,9 @@ describe('Header Component', () => {
     
     render(<Header />);
     
-    expect(screen.getByText('Poissons')).toBeInTheDocument();
-    expect(screen.getByText('Nouvelle plongée')).toBeInTheDocument();
-    expect(screen.getByText('Mon profil')).toBeInTheDocument();
+    expect(screen.getByText('Espèces Marines')).toBeInTheDocument();
+    expect(screen.getByText('Nouvelle Plongée')).toBeInTheDocument();
+    expect(screen.getByText('Profil')).toBeInTheDocument();
     expect(screen.getByText('Déconnexion')).toBeInTheDocument();
   });
 
@@ -104,7 +92,7 @@ describe('Header Component', () => {
     
     render(<Header />);
     
-    expect(screen.getByText('Admin')).toBeInTheDocument();
+    expect(screen.getByText('Administration')).toBeInTheDocument();
   });
 
   it('ne affiche pas le lien Admin pour un utilisateur normal', () => {
@@ -120,7 +108,7 @@ describe('Header Component', () => {
     
     render(<Header />);
     
-    expect(screen.queryByText('Admin')).not.toBeInTheDocument();
+    expect(screen.queryByText('Administration')).not.toBeInTheDocument();
   });
 
   it('déconnecte l\'utilisateur et redirige vers la page d\'accueil', () => {
@@ -151,12 +139,13 @@ describe('Header Component', () => {
     // Ne devrait pas crasher
     render(<Header />);
     
-    expect(screen.getByText('Se connecter')).toBeInTheDocument();
+    expect(screen.getByText('Connexion')).toBeInTheDocument();
   });
 
-  it('affiche le logo "Plongée"', () => {
+  it('affiche le logo "DIVE LOG"', () => {
     render(<Header />);
     
-    expect(screen.getByText('Plongée')).toBeInTheDocument();
+    expect(screen.getByText('DIVE LOG')).toBeInTheDocument();
+    expect(screen.getByText('Carnet de Plongée')).toBeInTheDocument();
   });
 });

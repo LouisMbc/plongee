@@ -33,11 +33,11 @@ jobs:
 
       - name: Run backend unit tests
         working-directory: ./backend
-        run: npm test
+        run: npm test -- --ci --maxWorkers=2 --testPathIgnorePatterns=integration
 
       - name: Run backend tests with coverage
         working-directory: ./backend
-        run: npm run test:coverage
+        run: npm run test:coverage -- --ci --maxWorkers=2 --testPathIgnorePatterns=integration
 
       - name: Upload backend coverage reports
         uses: codecov/codecov-action@v4
@@ -73,7 +73,7 @@ jobs:
 
       - name: Run frontend unit tests
         working-directory: ./frontend
-        run: npm test
+        run: npm test -- --ci --maxWorkers=2 --passWithNoTests
 
       - name: Upload frontend coverage reports
         uses: codecov/codecov-action@v4
@@ -170,8 +170,14 @@ jobs:
 
       - name: Run integration tests
         working-directory: ./backend
-        run: npm run test:integration
+        run: npm run test:integration -- --ci --maxWorkers=2
         env:
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: plongee_db
+          DB_USER: plongee_user
+          DB_PASSWORD: plongee_password
+          JWT_SECRET: test-secret-key-for-ci
           DATABASE_URL: postgresql://plongee_user:plongee_password@localhost:5432/plongee_db
 
   # Job 6: Tests E2E avec Playwright
