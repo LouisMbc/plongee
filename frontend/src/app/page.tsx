@@ -14,11 +14,19 @@ interface Plongee {
   temps: number;
 }
 
+interface User {
+  id: string;
+  pseudo: string;
+  nom: string;
+  prenom: string;
+  admin?: boolean;
+}
+
 export default function Home() {
   const router = useRouter();
   const [plongees, setPlongees] = useState<Plongee[]>([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const userData = localStorage.getItem('user');

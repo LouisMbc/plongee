@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 
     let query = 'SELECT id, nom, image FROM espece';
     let countQuery = 'SELECT COUNT(*) FROM espece';
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     
     // Ajouter le filtre de recherche si présent
     if (search) {

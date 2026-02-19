@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 interface Poisson {
@@ -200,7 +200,7 @@ export default function AddEspecesPage() {
             <p className="text-gray-500">
               {searchQuery && (
                 <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">
-                  "{searchQuery}"
+                  &quot;{searchQuery}&quot;
                 </span>
               )}
             </p>

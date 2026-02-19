@@ -93,12 +93,12 @@ export default function PlongeePage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Plongée introuvable</h2>
-          <p className="text-gray-600 mb-6">Cette plongée n'existe pas ou a été supprimée</p>
+          <p className="text-gray-600 mb-6">Cette plongée n&apos;existe pas ou a été supprimée</p>
           <button
             onClick={() => router.push('/')}
             className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 font-semibold shadow-lg"
           >
-            Retour à l'accueil
+            Retour à l&apos;accueil
           </button>
         </div>
       </main>
