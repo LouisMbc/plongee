@@ -191,7 +191,10 @@ jobs:
           PORT: 3001
 
       - name: Wait for backend to be ready
-        run: npx wait-on http://localhost:3001 --timeout 60000
+        run: |
+          npx wait-on http://localhost:3001 --timeout 120000
+          echo "Backend is responding, waiting for Next.js to stabilize..."
+          sleep 10
 
       - name: Run integration tests
         working-directory: ./backend
@@ -275,9 +278,13 @@ jobs:
       - name: Wait for services to be ready
         run: |
           echo "Waiting for backend..."
-          npx wait-on http://localhost:3001 --timeout 60000
+          npx wait-on http://localhost:3001 --timeout 120000
+          echo "Backend ready, waiting for Next.js to stabilize..."
+          sleep 10
           echo "Waiting for frontend..."
-          npx wait-on http://localhost:3000 --timeout 60000
+          npx wait-on http://localhost:3000 --timeout 120000
+          echo "Frontend ready, waiting for Next.js to stabilize..."
+          sleep 10
 
       - name: Run Playwright tests
         run: npx playwright test

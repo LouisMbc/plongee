@@ -20,7 +20,7 @@ test('Parcours utilisateur complet', async ({ page }) => {
 
   // Aller sur le profil
   await page.goto('http://localhost:3000/profile');
-  await expect(page.locator('h1')).toContainText('Mon Profil');
+  await expect(page.getByRole('heading', { name: 'Mon Profil' })).toBeVisible();
   await expect(page.getByText(`Bonjour, ${pseudo}`)).toBeVisible();
 
   // Déconnexion
