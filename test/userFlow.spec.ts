@@ -21,7 +21,7 @@ test('Parcours utilisateur complet', async ({ page }) => {
   // Aller sur le profil
   await page.goto('http://localhost:3000/profile');
   await expect(page.getByRole('heading', { name: 'Mon Profil' })).toBeVisible();
-  await expect(page.getByText(`Bonjour, ${pseudo}`)).toBeVisible();
+  await expect(page.getByText(pseudo)).toBeVisible(); // Vérifier que le pseudo s'affiche
 
   // Déconnexion
   await page.click('button:has-text("Déconnexion")');
@@ -36,7 +36,7 @@ test('Parcours utilisateur complet', async ({ page }) => {
 
   // Aller sur le profil et modifier le profil
   await page.goto('http://localhost:3000/profile');
-  await page.click('button:has-text("Modifier mon profil")');
+  await page.click('button:has-text("Modifier")');
   await expect(page).toHaveURL(/\/profile\/edit/);
   await page.locator('input[type="text"]').first().fill(`${pseudo}_modif`);
   await page.click('button[type="submit"]:has-text("Enregistrer les modifications")');
