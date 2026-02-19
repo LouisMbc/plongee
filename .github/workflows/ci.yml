@@ -170,6 +170,29 @@ jobs:
         working-directory: ./backend
         run: npm ci
 
+      - name: Install root dependencies (wait-on)
+        run: npm ci
+
+      - name: Initialize database
+        run: |
+          PGPASSWORD=plongee_password psql -h localhost -U plongee_user -d plongee_db -f docker/init-db/01-init.sql
+
+      - name: Start backend server
+        working-directory: ./backend
+        run: npm run dev &
+        env:
+          DATABASE_URL: postgresql://plongee_user:plongee_password@localhost:5432/plongee_db
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: plongee_db
+          DB_USER: plongee_user
+          DB_PASSWORD: plongee_password
+          JWT_SECRET: test-secret-key-for-ci
+          PORT: 3001
+
+      - name: Wait for backend to be ready
+        run: npx wait-on http://localhost:3001 --timeout 60000
+
       - name: Run integration tests
         working-directory: ./backend
         run: npm run test:integration -- --ci --maxWorkers=2
