@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
 
     // Vérifier si l'espèce existe déjà
     const existingEspece = await pool.query(
-      'SELECT id FROM espece WHERE nom = $1',
+      'SELECT * FROM espece WHERE nom = $1',
       [nom]
     );
 
