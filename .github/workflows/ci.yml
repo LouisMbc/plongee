@@ -27,9 +27,10 @@ jobs:
         working-directory: ./backend
         run: npm ci
 
-      # - name: Run backend linter
-      #   working-directory: ./backend
-      #   run: npm run lint
+      - name: Run backend linter
+        working-directory: ./backend
+        run: npm run lint
+        continue-on-error: true  # Ne pas bloquer la pipeline
 
       - name: Run backend unit tests
         working-directory: ./backend
@@ -67,9 +68,10 @@ jobs:
         working-directory: ./frontend
         run: npm ci
 
-      # - name: Run frontend linter
-      #   working-directory: ./frontend
-      #   run: npm run lint
+      - name: Run frontend linter
+        working-directory: ./frontend
+        run: npm run lint
+        continue-on-error: true  # Ne pas bloquer la pipeline
 
       - name: Run frontend unit tests
         working-directory: ./frontend
